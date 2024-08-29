@@ -1,9 +1,15 @@
 import { Switch } from '@headlessui/react'
-import { useRef } from 'react'
+import { useEffect, useRef,useState } from 'react'
 
+// useRef ile bir değer güncellenmesine rağmen, bu güncelleme bileşeni yeniden render etmez. Bunun yerine, useState kullanarak durumu yönetebilirsiniz.
 export default function Toggle() {
-  const toggleRef = useRef(true)
-  const enabled = toggleRef.current
+  //const toggleRef = useRef(true)
+  //const enabled = toggleRef.current
+  const [enabled,setEnabled] = useState(true)
+
+  useEffect(() => {
+    console.log(enabled)
+  })
 
   return (
     <div className='p-8 flex justify-center'>
@@ -11,8 +17,9 @@ export default function Toggle() {
         <Switch
           checked={enabled}
           onChange={() => {
-            toggleRef.current = !toggleRef.current
-            console.log(!toggleRef.current)
+            //toggleRef.current = !toggleRef.current
+            setEnabled(prev => !prev)
+            //console.log(!toggleRef.current)
           }}
           className={classNames(
             enabled ? 'bg-indigo-600' : 'bg-gray-200',
